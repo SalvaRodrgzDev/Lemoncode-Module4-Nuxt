@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-card class="overflow-hidden">
+    <v-card class="overflow-hidden fill-height" >
     <v-app-bar
       app
       elevate-on-scroll
@@ -13,18 +13,16 @@
             <v-text-field
               :append-icon="'mdi-magnify'"
               label="Search..."
-              v-model="searchTerm"
+              v-model="searchterm"
             >
             </v-text-field>
           </v-form>
     </v-app-bar>
     <v-main
       id="scrolling-techniques-7"
-      class="overflow-y-auto"
+      class="overflow-y-auto fill-height"
     >
-      <v-container fill-height>
-        <Nuxt />
-      </v-container>
+    <Nuxt />
     </v-main>
   </v-card>
   </v-app>
@@ -35,12 +33,12 @@ import Vue from "vue";
 export default Vue.extend({
   data() {
     return {
-      searchTerm: "lemoncode",
+      searchterm: "lemoncode",
     }
   },
   methods: {
     async updateSearchTerm() {
-      this.$store.commit('setSearchTerm', this.searchTerm)
+      this.$store.commit('setSearchTerm', this.searchterm)
     },
   }
 })

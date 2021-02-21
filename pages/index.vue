@@ -1,23 +1,39 @@
 <template>
-  <ul>
+  <p v-if="$fetchState.pending">Loading....</p>
+  <p v-else-if="$fetchState.error">Error while fetching mountains</p>
+  <ul v-else-if="typeof members !== 'undefined' && members.length > 0">
     <v-data-table
       :headers="headers"
       :items="members"
       :items-per-page="10"
       class="elevation-1"
     >
-      <template v-slot:item.login="{ item }">
-        <NuxtLink :to="`/detail/${item.login}`">{{ item.login }}</NuxtLink>
-      </template>
       <template v-slot:item.avatar_url="{ item }">
-        <v-img
-          :src="item.avatar_url"
-          :lazy-src="item.avatar_url"
-          max-width="75px"
-        ></v-img>
+        <v-avatar class="my-2">
+          <v-img
+            :src="item.avatar_url"
+            :lazy-src="item.avatar_url"
+            max-width="75px"
+          ></v-img>
+        </v-avatar>
+      </template>
+      <template v-slot:item.login="{ item }">
+        <v-btn
+          target="_blank"
+          icon
+          color="white"
+          :to="`/detail/${item.login}`">{{ item.login }}
+        </v-btn>
       </template>
       <template v-slot:item.url="{ item }">
-        <a :href="item.url">Link to Github profile</a>
+        <v-btn
+          :href="item.html_url"
+          target="_blank"
+          icon
+          color="indigo"
+        >
+          <v-icon>mdi-github</v-icon>
+        </v-btn>
       </template>
     </v-data-table>
   </ul>
@@ -25,38 +41,33 @@
 
 <script>
 import Vue from "vue";
+import { mapGetters } from "vuex";
+
 export default Vue.extend({
   data() {
     return {
-      searchTerm: 'lemoncode',
       members: [],
       headers: [
-        { text: 'login', value: 'login'},
-        { text: 'avatar_url', value: 'avatar_url'},
-        { text: 'url', value: 'url'},
+        { text: 'Avatar', value: 'avatar_url'},
+        { text: 'Detail', value: 'login'},
+        { text: 'Github Profile', value: 'url'},
       ]
     }
   },
   computed: {
-    organization() {
-      return this.$store.state.searchTerm
-    }
-  },
-  methods: {
-    async search() {
-      this.searchTerm = this.organization
-      this.members = await fetch(
-      `https://api.github.com/orgs/${this.searchTerm}/members`
-    ).then(res => res.json())
-    },
+    ...mapGetters({
+      organization: 'getSearchterm'
+    })
   },
   watch: {
     organization() {
-      this.search()
+      this.$fetch()
     }
   },
-  created() {
-    this.search()
+  async fetch() {
+    this.members = await fetch(
+      `https://api.github.com/orgs/${this.organization}/members`
+    ).then(res => res.json())
   }
 })
 </script>

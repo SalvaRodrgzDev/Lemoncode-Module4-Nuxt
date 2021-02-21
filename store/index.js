@@ -1,9 +1,15 @@
 export const state = () => ({
-    searchTerm: 'lemoncode'
+    searchterm: 'lemoncode'
 })
 
 export const mutations = {
-    setSearchTerm(state, searchTerm ) {
-        state.searchTerm = searchTerm
+    setSearchTerm(state, searchterm ) {
+        state.searchterm = searchterm
     }
 }
+
+export const getters = {
+  getSearchterm: state => {
+    return state.searchterm
+  }
+};
