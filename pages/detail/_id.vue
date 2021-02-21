@@ -1,14 +1,16 @@
 <template>
   <v-container fill-height>
     <v-row>
-      <v-col class="d-flex flex-column justify-space-between ">
+      <v-col>
         <p v-if="$fetchState.pending">Loading....</p>
         <p v-else-if="$fetchState.error">Error while fetching mountains</p>
         <div v-else>
-          <MemberCard :member="member" />
+          <MemberCard class="align-self" :member="member" />
         </div>
-        <v-spacer></v-spacer>
-        <v-btn
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-btn
           to="/"
           class="ma-2"
           outlined
@@ -16,7 +18,6 @@
         >
           Back to Members table
         </v-btn>
-      </v-col>
     </v-row>
   </v-container>
 </template>

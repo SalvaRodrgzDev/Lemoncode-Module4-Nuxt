@@ -19,7 +19,6 @@
       </template>
       <template v-slot:item.login="{ item }">
         <v-btn
-          target="_blank"
           icon
           color="white"
           :to="`/detail/${item.login}`">{{ item.login }}
