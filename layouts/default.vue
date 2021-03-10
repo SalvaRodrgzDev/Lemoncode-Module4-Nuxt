@@ -3,11 +3,10 @@
     <v-card class="overflow-hidden fill-height" >
     <v-app-bar
       app
-      elevate-on-scroll
       height="100px"
       scroll-target="#scrolling-techniques-7"
     >
-        <v-toolbar-title>Title</v-toolbar-title>
+        <v-toolbar-title>Github Members</v-toolbar-title>
         <v-spacer></v-spacer>
           <v-form @submit.prevent="updateSearchTerm">
             <v-text-field

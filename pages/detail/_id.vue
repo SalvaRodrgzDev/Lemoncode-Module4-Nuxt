@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <p v-if="$fetchState.pending">Loading....</p>
-        <p v-else-if="$fetchState.error">Error while fetching mountains</p>
+        <p v-else-if="$fetchState.error">Error while fetching members</p>
         <div v-else>
           <MemberCard class="align-self" :member="member" />
         </div>
